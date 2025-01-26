@@ -125,8 +125,7 @@
       const vecinosIzq = vecinos[numeroActual][0];
       const vecinosDer = vecinos[numeroActual][1];
 
-      // Verificación de repetidos:
-      // Se marca como "repetido" si existe alguna fila con el mismo par de "Número Actual" y "Número Anterior"
+      // Verificación de repetidos: Se marca como "repetido" si existe alguna fila con el mismo par de "Número Actual" y "Número Anterior"
       const repetido = historial.some(row => 
         (row.numeroActual === numeroActual && row.numeroAnterior === numeroAnterior)
       ) ? 'repeated' : '';
@@ -161,14 +160,6 @@
         alert("Por favor, ingresa un número válido entre 0 y 36.");
       }
     });
-
-    // Para agregar el primer registro al cargar la página
-    window.onload = function() {
-      const numeroActual = parseInt(document.getElementById('numeroActual').value);
-      if (numeroActual >= 0 && numeroActual <= 36) {
-        agregarFila(numeroActual);
-      }
-    };
   </script>
 </body>
 </html>
