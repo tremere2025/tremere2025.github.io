@@ -84,7 +84,7 @@
       9: [22, 18],
       10: [5, 23],
       11: [6, 8],
-      12: [00, 3],
+      12: [0, 3],
       13: [24, 36],
       14: [31, 9],
       15: [3, 34],
@@ -130,8 +130,9 @@
       // Verificación de repetidos
       const repetido = historial.some(row => 
         (row.numeroAnterior === numeroActual || row.numeroActual === numeroSiguiente)
-      ) ? 'repetido' : '';
+      ) ? 'repeated' : '';
 
+      // Agregar al historial
       historial.push({ numeroAnterior, numeroActual, numeroSiguiente, vecinosIzq, vecinosDer });
 
       const row = document.createElement('tr');
@@ -145,7 +146,7 @@
         <td>${frecuencia}</td>
         <td>${vecinosIzq}</td>
         <td>${vecinosDer}</td>
-        <td>${repetido}</td>
+        <td>${repetido ? 'Repetido' : ''}</td>
       `;
 
       document.getElementById('tablaRuleta').appendChild(row);
