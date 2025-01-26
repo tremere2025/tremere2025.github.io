@@ -57,7 +57,6 @@
       <tr>
         <th>Número Anterior</th>
         <th>Número Actual</th>
-        <th>Número Siguiente</th>
         <th>Frecuencia</th>
         <th>Vecinos Izq</th>
         <th>Vecinos Der</th>
@@ -122,18 +121,18 @@
     // Función para agregar una fila a la tabla
     function agregarFila(numeroActual) {
       const numeroAnterior = historial.length > 0 ? historial[historial.length - 1].numeroActual : null;
-      const numeroSiguiente = historial.length > 1 ? historial[historial.length - 2].numeroAnterior : null;
       const frecuencia = historial.filter(row => row.numeroActual === numeroActual).length + 1;
       const vecinosIzq = vecinos[numeroActual][0];
       const vecinosDer = vecinos[numeroActual][1];
 
-      // Verificación de repetidos
+      // Verificación de repetidos:
+      // Se marca como "repetido" si existe alguna fila con el mismo par de "Número Actual" y "Número Anterior"
       const repetido = historial.some(row => 
-        (row.numeroAnterior === numeroActual || row.numeroActual === numeroSiguiente)
+        (row.numeroActual === numeroActual && row.numeroAnterior === numeroAnterior)
       ) ? 'repeated' : '';
 
       // Agregar al historial
-      historial.push({ numeroAnterior, numeroActual, numeroSiguiente, vecinosIzq, vecinosDer });
+      historial.push({ numeroAnterior, numeroActual, vecinosIzq, vecinosDer });
 
       const row = document.createElement('tr');
       row.classList.add(repetido);
@@ -142,7 +141,6 @@
       row.innerHTML = `
         <td class="${getColor(numeroAnterior)}">${numeroAnterior !== null ? numeroAnterior : 'null'}</td>
         <td class="${getColor(numeroActual)}">${numeroActual}</td>
-        <td class="${getColor(numeroSiguiente)}">${numeroSiguiente !== null ? numeroSiguiente : ''}</td>
         <td>${frecuencia}</td>
         <td>${vecinosIzq}</td>
         <td>${vecinosDer}</td>
@@ -156,12 +154,21 @@
     document.getElementById('agregarBtn').addEventListener('click', function() {
       const numeroActual = parseInt(document.getElementById('numeroActual').value);
       if (numeroActual >= 0 && numeroActual <= 36) {
+        // Llamar a agregarFila para mostrar el primer registro
         agregarFila(numeroActual);
         document.getElementById('numeroActual').value = ''; // Limpiar campo
       } else {
         alert("Por favor, ingresa un número válido entre 0 y 36.");
       }
     });
+
+    // Para agregar el primer registro al cargar la página
+    window.onload = function() {
+      const numeroActual = parseInt(document.getElementById('numeroActual').value);
+      if (numeroActual >= 0 && numeroActual <= 36) {
+        agregarFila(numeroActual);
+      }
+    };
   </script>
 </body>
 </html>
