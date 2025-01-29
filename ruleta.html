@@ -115,8 +115,9 @@
     <div class="container">
         <h1>Control de Ruleta</h1>
         <label for="numero">Número a registrar:</label>
-        <input type="number" id="numero" min="0" max="36">
-        <button onclick="registrar()">Registrar</button>
+        <input type="number" id="numero" min="0" max="36" onkeydown="activarBoton(event)">
+          <button id="Registrar" onclick="registrar()">Registrar</button>
+		    <!-- <button onclick="registrar()">Registrar</button> -->
         <button onclick="eliminarUltimoRegistro()">Borrar</button>
 
         <div class="juega">
@@ -173,6 +174,15 @@
         const ruleta = [
             0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
         ];
+		
+		// Prueba usando el enter 
+		   function activarBoton(event) {
+         // Verificar si la tecla presionada es Enter (código de tecla 13)
+           if (event.key === "Enter") {
+        // Hacer clic en el botón al presionar Enter
+        document.getElementById("Registrar").click();
+          }
+        }
 
         function registrar() {
             const numero = document.getElementById('numero').value;
@@ -212,6 +222,7 @@
             actualizarGanaste();
 
             actualizarTabla();
+			document.getElementById('numero').value ="";
         }
 
         function obtenerColor(numero) {
